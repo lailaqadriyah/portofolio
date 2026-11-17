@@ -11,7 +11,7 @@ import {
   Phone,
   X,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import ProjectModal from "./components/ProjectModal";
 import {
   AWARDS,
@@ -19,7 +19,6 @@ import {
   EDUCATION,
   ORGANIZATIONS,
   PROFILE,
-  PROJECT_TYPES,
   PROJECTS,
 } from "./data/portfolioData";
 
@@ -35,7 +34,6 @@ export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("about");
   const [expTab, setExpTab] = useState("org");
-  const [projectFilter, setProjectFilter] = useState("Semua");
   const [selectedProject, setSelectedProject] = useState(null);
   const [imgError, setImgError] = useState(false);
   const [copied, setCopied] = useState("");
@@ -81,11 +79,6 @@ export default function App() {
       revealObserver.disconnect();
     };
   }, []);
-
-  const filteredProjects = useMemo(() => {
-    if (projectFilter === "Semua") return PROJECTS;
-    return PROJECTS.filter((p) => p.type === projectFilter);
-  }, [projectFilter]);
 
   const scrollToSection = (id) => {
     setMobileOpen(false);
@@ -181,7 +174,7 @@ export default function App() {
                     src="/img/profile.jpg"
                     alt={PROFILE.name}
                     onError={() => setImgError(true)}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full origin-bottom scale-[1.28] object-cover object-bottom"
                   />
                 ) : (
                   <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200/70 p-6 text-center">
@@ -211,7 +204,7 @@ export default function App() {
             </h1>
 
             <p className="mb-5 text-base font-light text-gray-600 sm:text-xl md:text-2xl">
-              Mahasiswa Sistem Informasi • Universitas Andalas
+              Mahasiswa Sistem Informasi, Universitas Andalas
             </p>
 
             <p className="mb-8 text-sm leading-relaxed text-gray-500 sm:mb-10 sm:text-base">
@@ -379,36 +372,17 @@ export default function App() {
         className="bg-gradient-to-b from-gray-50/70 via-gray-50 to-white px-4 py-16 sm:px-6 md:py-20"
       >
         <div className="reveal mx-auto max-w-6xl">
-          <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <p className="mb-2 text-[11px] uppercase tracking-[0.2em] text-gray-400">
-                Work
-              </p>
-              <h2 className="text-3xl font-light text-gray-900 md:text-4xl">
-                Recent Projects
-              </h2>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {PROJECT_TYPES.map((type) => (
-                <button
-                  key={type}
-                  type="button"
-                  onClick={() => setProjectFilter(type)}
-                  className={`rounded-full border px-3.5 py-1.5 text-xs font-medium transition ${
-                    projectFilter === type
-                      ? "border-gray-900 bg-gray-900 text-white"
-                      : "border-gray-200 bg-white text-gray-600 hover:border-gray-400"
-                  }`}
-                >
-                  {type}
-                </button>
-              ))}
-            </div>
+          <div className="mb-8">
+            <p className="mb-2 text-[11px] uppercase tracking-[0.2em] text-gray-400">
+              Work
+            </p>
+            <h2 className="text-3xl font-light text-gray-900 md:text-4xl">
+              Recent Projects
+            </h2>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {filteredProjects.map((project) => (
+            {PROJECTS.map((project) => (
               <article
                 key={project.id}
                 onClick={() => setSelectedProject(project)}
@@ -442,11 +416,7 @@ export default function App() {
                 </div>
 
                 <div className="flex flex-1 flex-col p-5">
-                  <div className="flex items-center justify-between text-[11px] font-medium uppercase tracking-wider text-gray-400">
-                    <span>{project.type}</span>
-                    <span>{project.year}</span>
-                  </div>
-                  <h3 className="mt-1.5 text-lg font-semibold text-gray-900 group-hover:text-gray-700">
+                  <h3 className="text-lg font-semibold text-gray-900 group-hover:text-gray-700">
                     {project.title}
                   </h3>
                   <p className="mt-2 line-clamp-3 flex-1 text-sm text-gray-600">

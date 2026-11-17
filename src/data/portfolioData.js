@@ -60,8 +60,8 @@ export const PROJECTS = [
     featured: true,
     award: null,
     role: "Pengembang & Pengelola Sistem Informasi",
-    image: null,
-    placeholderFile: "public/img/student-connect.png",
+    image: "/img/student-connect.jpg",
+    placeholderFile: null,
     url: "https://studentconnect.unand.ac.id",
     urlLabel: "studentconnect.unand.ac.id",
     summary:
@@ -240,10 +240,10 @@ export const PROJECTS = [
     featured: false,
     award: null,
     role: "Pengembang Web & Pengelola Konten",
-    image: null,
-    placeholderFile: "public/img/bank-sampah.png",
-    url: "https://github.com/lailaqadriyah/web_profile",
-    urlLabel: "github.com/lailaqadriyah/web_profile",
+    image: "/img/bank-sampah.png",
+    placeholderFile: null,
+    url: "https://webprofilebshandayani.vercel.app/",
+    urlLabel: "webprofilebshandayani.vercel.app",
     summary:
       "Platform informatif yang memperkenalkan profil, visi-misi, dan program layanan bank sampah kepada masyarakat secara rapi dan mudah diakses.",
     skillsContext: [
